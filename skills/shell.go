@@ -1,6 +1,9 @@
 package skills
 
 import (
+	"fmt"
+	"os/exec"
+
 	skills "github.com/scottraio/plum/skills"
 )
 
@@ -10,17 +13,19 @@ type ShellCommandSkill struct {
 }
 
 func ShellCommand() *skills.Skill {
-	var shell *ShellCommandSkill
 	// create the model
-	shell = &ShellCommandSkill{
+	shell := &ShellCommandSkill{
 		// Model is the base model that you want to use
 		Skill: skills.Skill{
-			HowTo: `
-				You are given shell commands
-			`,
-
 			Return: func(query string) string {
-				return shell.Execute(query)
+				cmd := exec.Command("sh", "-c", query)
+				out, err := cmd.CombinedOutput()
+
+				if err != nil {
+					fmt.Println(err)
+					return ""
+				}
+				return string(out)
 			},
 		},
 	}

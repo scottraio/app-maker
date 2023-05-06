@@ -15,10 +15,10 @@ func Boot() plum.AppConfig {
 	})
 
 	// register the skills
-	boot.RegisterSkill("shell", skills.ShellCommand())
+	boot.RegisterSkill("ShellCommand", skills.ShellCommand())
 
 	// register the agents
-	boot.RegisterAgent("chef", agents.CodeAgent())
+	boot.RegisterAgent("code", agents.CodeAgent())
 
 	return boot
 }
