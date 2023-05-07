@@ -14,10 +14,7 @@ func main() {
 
 	Boot()
 
-	if cliMode {
-		plum.Cli(plum.CliConfig{})
-	} else {
-		Server()
-	}
-
+	plum.Cli(plum.CliConfig{
+		DefaultAgent: "code",
+	})
 }

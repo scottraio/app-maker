@@ -34,7 +34,7 @@ func WriteFile() *skills.Skill {
 }
 
 func (skill *WriteFileSkill) WriteFile(filename string, text string) string {
-	fullFilename := filepath.Join("build", filename)
+	fullFilename := filepath.Join(filename)
 	directory := filepath.Dir(fullFilename)
 	os.MkdirAll(directory, os.ModePerm)
 

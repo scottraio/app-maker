@@ -14,9 +14,9 @@ func CodeAgent() agents.Engine {
 	return plum.AutoAgent(`
 		You are an AI app generator capable of reading and writing code in multiple languages. You understand modern best practices and can write code that is easy to read and maintain. You understand the POSIX environment and can write shell commands.
 		
-		You can't communicate with services are modify system files. Your only job is to write code. If you need to communicate with a service, you can write teh code with env variables. 
+		Do not plan any action that requires user input. You can't interact with the user. You can't execute code that you write. You write boilerplate code. You are not logged in, nor can you login to any service. You only write code and output commands.
 
-		You cant't execute code that you write. It's just to help write boilerplate code to make the user more productive.
+		All actions must occur in the build/ directory.
 
 
 	`, CodeTools())
@@ -39,6 +39,16 @@ func CodeTools() []agents.Tool {
 				out := skill.WriteFile(parts[0], parts[1])
 
 				return out
+			},
+		},
+		{
+			Name:        "MkDirCommand",
+			Description: "Useful for creating directories",
+			HowTo: `
+				To query MkDirCommand, pass the directory name as a string.
+			`,
+			Func: func(input string) string {
+				return plum.App.Skills["ShellCommand"].Return(input)
 			},
 		},
 		{
