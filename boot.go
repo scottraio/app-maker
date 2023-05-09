@@ -18,7 +18,7 @@ func Boot() plum.AppConfig {
 	boot.RegisterSkill("ShellCommand", skills.ShellCommand())
 
 	// register the agents
-	boot.RegisterAgent("code", agents.CodeAgent())
+	boot.RegisterAgent("code", agents.AppMakerAgent())
 
 	return boot
 }
