@@ -31,8 +31,7 @@ func CodeTools() []agents.Tool {
 				Example: filename
 			`,
 			Func: func(input agents.Input) string {
-				codeSkill := skills.CodeSkill{}
-				return codeSkill.Write(input)
+				return skills.WriteCodeToFile(input)
 			},
 		},
 		{
@@ -42,7 +41,7 @@ func CodeTools() []agents.Tool {
 				To query MkDirCommand, pass the directory name as a string.
 			`,
 			Func: func(input agents.Input) string {
-				return plum.App.Skills["ShellCommand"].Return(input.Text)
+				return skills.MkDir(input.Text)
 			},
 		},
 		{
@@ -52,7 +51,7 @@ func CodeTools() []agents.Tool {
 				To query ShellCommand, pass the command as a string.
 			`,
 			Func: func(input agents.Input) string {
-				return plum.App.Skills["ShellCommand"].Return(input.Text)
+				return skills.RunShellCommand(input.Text)
 			},
 		},
 	}

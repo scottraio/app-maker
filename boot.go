@@ -2,7 +2,6 @@ package main
 
 import (
 	agents "github.com/scottraio/app-maker/agents"
-	skills "github.com/scottraio/app-maker/skills"
 	plum "github.com/scottraio/plum"
 )
 
@@ -13,9 +12,6 @@ func Boot() plum.AppConfig {
 		// Which LLMS to use
 		LLM: "openai",
 	})
-
-	// register the skills
-	boot.RegisterSkill("ShellCommand", skills.ShellCommand())
 
 	// register the agents
 	boot.RegisterAgent("code", agents.AppMakerAgent())
