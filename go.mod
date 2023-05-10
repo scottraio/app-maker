@@ -5,10 +5,8 @@ go 1.20
 require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
-	github.com/scottraio/plum v0.2.4
+	github.com/scottraio/plum v0.2.5
 )
-
-replace github.com/scottraio/plum => ../plum
 
 require (
 	github.com/JohannesKaufmann/html-to-markdown v1.4.0 // indirect
