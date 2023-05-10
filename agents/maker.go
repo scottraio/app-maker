@@ -1,9 +1,7 @@
 package agents
 
 import (
-	"strings"
-
-	"github.com/scottraio/app-maker/skills"
+	skills "github.com/scottraio/app-maker/skills"
 	plum "github.com/scottraio/plum"
 	agents "github.com/scottraio/plum/agents"
 )
@@ -29,36 +27,12 @@ func CodeTools() []agents.Tool {
 			Name:        "CodeWriter",
 			Description: "Useful for writing code to a file",
 			HowTo: `
-				To query CodeWriter, pass the filename and descriptive instructions separated by a pipe.
-				Example: filename|instructions
+				To query CodeWriter, pass the filename of the file you want to write.
+				Example: filename
 			`,
 			Func: func(input agents.Input) string {
-				writeFileSkill := skills.WriteFileSkill{}
 				codeSkill := skills.CodeSkill{}
-
-				parts := strings.SplitN(input.Text, "|", 2)
-
-				fileName := parts[0]
-				codeInstructions := parts[0]
-
-				code := codeSkill.Write(codeInstructions)
-				return writeFileSkill.WriteFile(fileName, code)
-			},
-		},
-		{
-			Name:        "WriteFile",
-			Description: "Useful for writing non-code files to filesystem",
-			HowTo: `
-				To query WriteFile, pass the filename and text separated by a pipe.
-				Example: filename|text
-			`,
-			Func: func(input agents.Input) string {
-				parts := strings.SplitN(input.Text, "|", 2)
-
-				skill := skills.WriteFileSkill{}
-				out := skill.WriteFile(parts[0], parts[1])
-
-				return out
+				return codeSkill.Write(input)
 			},
 		},
 		{

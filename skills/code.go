@@ -2,6 +2,7 @@ package skills
 
 import (
 	"github.com/scottraio/plum"
+	"github.com/scottraio/plum/agents"
 	skills "github.com/scottraio/plum/skills"
 )
 
@@ -25,14 +26,23 @@ func Code() *skills.Skill {
 	return &code.Skill
 }
 
-func (skill *CodeSkill) Write(codeToWrite string) string {
+func (skill *CodeSkill) Write(input agents.Input) string {
 	prompt := `
-		You are a senior software engineer, you can read and write code in multiple languages. You understand modern software stacks and patterns. 
+	You are an AI app generator capable of reading and writing code in multiple languages. You understand modern best practices and can write code that is easy to read and maintain.
 
-		You are given a task, write the code necessary to complete the task. Output the code ONLY
+	You are given a previous prompt with instructions and the current action. 
+	Answer by giving the output to the tool for the current action.
 
-		Task: 
+	Steps: 
+	` + "```" + input.Agent.Decision.StepsToString() + "```" + `
+
+	Current Step:
+	` + "```" + input.CurrentStep + "```" + `
+
+	The code is:
 	`
 
-	return plum.App.LLM.Run(prompt + codeToWrite)
+	code := plum.App.LLM.Run(prompt)
+	writeFile := WriteFileSkill{}
+	return writeFile.WriteFile(input.Text, code)
 }
